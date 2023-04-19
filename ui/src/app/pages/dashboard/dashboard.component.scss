@@ -1,0 +1,27 @@
+.chart-section {
+    margin-top: 24px;
+
+    .body {
+        min-height: 50px;
+    }
+}
+
+.filter-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tables-section{
+    margin-top: 24px;
+    display: flex;
+
+    .raw-data {
+        width: 75%;
+        margin: 0 12px 0 0;
+    }
+
+    .top-requests {
+        flex: 1 1 0;
+    }
+}

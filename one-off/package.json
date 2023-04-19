@@ -1,0 +1,18 @@
+{
+  "name": "one-off",
+  "version": "1.0.0",
+  "description": "",
+  "main": "copy_to_firebase.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^11.6.0"
+  },
+  "devDependencies": {
+    "csv-parse": "^5.3.8"
+  }
+}
