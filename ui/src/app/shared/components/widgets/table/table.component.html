@@ -1,0 +1,35 @@
+<div class="table-container">
+
+    <table mat-table [dataSource]="data" class="example-table" matSort matSortActive="created" matSortDisableClear
+        matSortDirection="desc">
+        <!-- Number Column -->
+        <ng-container matColumnDef="caseid">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let row">{{row.CaseID}}</td>
+        </ng-container>
+
+        <!-- Title Column -->
+        <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>Category</th>
+            <td mat-cell *matCellDef="let row">{{row.Category}}</td>
+        </ng-container>
+
+        <!-- State Column -->
+        <ng-container matColumnDef="created">
+            <th mat-header-cell *matHeaderCellDef>Created</th>
+            <td mat-cell *matCellDef="let row">{{row.Opened | date}}</td>
+        </ng-container>
+
+        <!-- Created Column -->
+        <ng-container matColumnDef="desc">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+                Description
+            </th>
+            <td mat-cell *matCellDef="let row">{{row['Request Details'] }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+<mat-paginator [length]="resultsLength" [pageSize]="10" (page)="pageChange($event)" aria-label="Select page of GitHub search results"></mat-paginator>

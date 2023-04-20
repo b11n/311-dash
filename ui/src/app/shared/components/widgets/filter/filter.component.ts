@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit, Output,EventEmitter } from '@angular/core';
 import {MatDialog,MatDialogRef} from '@angular/material/dialog';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
@@ -17,23 +17,29 @@ interface FilterConfig {
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent {
+  @Output() onFilterChange = new EventEmitter<FilterConfig|null>();
   selectedFilters: string[] = [];
+  filterConfig: FilterConfig|null = null;
   constructor(public dialog: MatDialog) {}
 
   openDialog() {
     const dialogRef = this.dialog.open(FilterDialog);
 
     dialogRef.afterClosed().subscribe((result:FilterConfig) => {
-      this.refreshFilterList(result);
+      if(result){
+        this.refreshFilterList(result);
+      }
     });
   }
 
   remove(selected: string) {
     this.selectedFilters = [];
+    this.onFilterChange.emit(null);
   }
 
   private refreshFilterList(filterConfig: FilterConfig){
-    this.selectedFilters = [filterConfig.neighborhood]
+    this.selectedFilters = [filterConfig.neighborhood];
+    this.onFilterChange.emit(filterConfig);
   }
 }
 

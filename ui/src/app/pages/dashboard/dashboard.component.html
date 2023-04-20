@@ -1,7 +1,7 @@
 <div class="filter-bar">
     <app-card >
         <div class="filter-body">
-            <app-filter></app-filter>
+            <app-filter (onFilterChange)="updateFilters($event)"></app-filter>
             <app-date-range [(fromDate)]="fromDate" [(toDate)]="toDate" (valueChanged)="updateData()"></app-date-range>
         </div>
     </app-card>
@@ -15,16 +15,18 @@
 
 <div class="tables-section">
     <div class="raw-data">
-        <app-card [loading]="loading">
-            <div class="body">Raw data goes here</div>
+        <app-card [loading]="loading || tableLoading"  cardHeader="Cases">
+            <app-table [data]="TABLE_DATA" (pageUpdate)="pageUpdate($event)"></app-table>
         </app-card>
     </div>
     <div class="top-requests">
-        <app-card [loading]="loading">
-            <div class="body">top requests goes here</div>
-            <div *ngFor="let issue of ISSUES_DATA">
-                {{issue.Category}} -  {{issue.count}}
+        <app-card [loading]="loading" cardHeader="Top requests">
+            <div class="requests-body">
+            <div class="top-issue-row" *ngFor="let issue of ISSUES_DATA">
+                <div>{{issue.Category}}</div>
+                <div>{{issue.count}}</div>
             </div>
+         </div>
         </app-card>
     </div>
 </div>
