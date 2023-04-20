@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
+import {Input, Output, Component, EventEmitter } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 
-const today = new Date();
-const month = today.getMonth();
-const year = today.getFullYear();
+
 
 
 @Component({
@@ -12,8 +10,42 @@ const year = today.getFullYear();
   styleUrls: ['./date-range.component.scss']
 })
 export class DateRangeComponent {
+
+  @Input()
+  set fromDate(value: string) {
+    const today = new Date(value);
+    this.campaignOne.patchValue({
+      start: new Date(value)
+    });
+  }
+
+  @Input()
+  set toDate(value: string) {
+    const today = new Date(value);
+    this.campaignOne.patchValue({
+      end: new Date(value)
+    });
+  }
+
+  @Output() fromDateChange = new EventEmitter<string>();
+  @Output() toDateChange = new EventEmitter<string>();
+  @Output() valueChanged = new EventEmitter();
+
+
   campaignOne = new FormGroup({
-    start: new FormControl(new Date(year, month, 13)),
-    end: new FormControl(new Date(year, month, 16)),
+    start: new FormControl(new Date()),
+    end: new FormControl(new Date()),
   });
+
+  saveDate(){
+    if(this.campaignOne.value.start && this.campaignOne.value.end){
+      this.fromDateChange.emit(formatDate(this.campaignOne.value.start) );
+      this.toDateChange.emit(formatDate(this.campaignOne.value.end) );
+      this.valueChanged.emit();
+    }
+  }
+}
+
+function formatDate(date: Date):string {
+  return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
 }

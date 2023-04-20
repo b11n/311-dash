@@ -1,5 +1,11 @@
-<button mat-stroked-button color="primary" class="filter-button">
-    
-    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="filter_alt"></mat-icon>
+<button mat-stroked-button color="primary" class="filter-button" (click)="openDialog()">
+    <mat-icon aria-hidden="false" aria-label="Open Filters" fontIcon="filter_alt"></mat-icon>
+    Filters
+</button>
 
-    Filters</button>
+<mat-chip-row *ngFor="let filter of selectedFilters" (removed)="remove(filter)">
+    {{filter}}
+    <button matChipRemove [attr.aria-label]="'remove ' + filter">
+      <mat-icon>cancel</mat-icon>
+    </button>
+</mat-chip-row>

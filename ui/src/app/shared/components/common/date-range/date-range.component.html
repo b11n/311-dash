@@ -1,8 +1,8 @@
 <mat-form-field class="date-form-field" appearance="outline">
     <mat-label>Date range</mat-label>
-    <mat-date-range-input [formGroup]="campaignOne" [rangePicker]="campaignOnePicker">
+    <mat-date-range-input [formGroup]="campaignOne" [rangePicker]="campaignOnePicker" > 
         <input matStartDate placeholder="Start date" formControlName="start">
-        <input matEndDate placeholder="End date" formControlName="end">
+        <input matEndDate placeholder="End date" formControlName="end" (dateChange)="saveDate()">
     </mat-date-range-input>
     <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
     <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>

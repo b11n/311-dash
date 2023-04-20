@@ -1,27 +1,30 @@
 <div class="filter-bar">
-    <app-card>
+    <app-card >
         <div class="filter-body">
             <app-filter></app-filter>
-            <app-date-range></app-date-range>
+            <app-date-range [(fromDate)]="fromDate" [(toDate)]="toDate" (valueChanged)="updateData()"></app-date-range>
         </div>
     </app-card>
 </div>
 
-<div class="chart-section">
-    <app-card>
-        <div class="body">Graph goes here</div>
+<div class="chart-section" >
+    <app-card [loading]="loading">
+        <app-line-chart [data]="CHART_DATA"></app-line-chart>
     </app-card>
 </div>
 
 <div class="tables-section">
     <div class="raw-data">
-        <app-card>
+        <app-card [loading]="loading">
             <div class="body">Raw data goes here</div>
         </app-card>
     </div>
     <div class="top-requests">
-        <app-card>
+        <app-card [loading]="loading">
             <div class="body">top requests goes here</div>
+            <div *ngFor="let issue of ISSUES_DATA">
+                {{issue.Category}} -  {{issue.count}}
+            </div>
         </app-card>
     </div>
 </div>

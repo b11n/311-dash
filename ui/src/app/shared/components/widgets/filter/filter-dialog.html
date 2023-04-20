@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Filters</h2>
+<mat-dialog-content class="dialog-content">
+    <form class="example-form">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Neighborhood</mat-label>
+          <input type="text"
+                 placeholder="Pick one"
+                 aria-label="Neighborhood"
+                 matInput
+                 [formControl]="myControl"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="optionSelected($event)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+      <div *ngIf="selectedNeighborhood !== null">
+        Selected: {{selectedNeighborhood}}
+      </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [disabled]="selectedNeighborhood == null ? true: false" 
+  (click)="closeDialog()"
+  [mat-dialog-close]="true" cdkFocusInitial>Apply</button>
+</mat-dialog-actions>

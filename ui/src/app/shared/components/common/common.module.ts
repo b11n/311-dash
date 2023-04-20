@@ -7,12 +7,16 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { LineChartComponent } from './line-chart/line-chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
   declarations: [
     CardComponent,
-    DateRangeComponent
+    DateRangeComponent,
+    LineChartComponent
   ],
   imports: [
     CommonModule,
@@ -21,10 +25,13 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatDatepickerModule,
     ReactiveFormsModule,
     MatNativeDateModule,
+    MatProgressBarModule,
+    NgChartsModule,
   ],
   exports: [
     CardComponent,
-    DateRangeComponent
+    DateRangeComponent,
+    LineChartComponent,
   ]
 })
 export class CommonComponentsModule { }

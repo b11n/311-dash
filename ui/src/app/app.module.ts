@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminComponent } from './pages/admin/admin.component';
 import { LayoutModule } from './shared/components/layout/layout.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,8 @@ import { DashboardModule } from './pages/dashboard/dashboard.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     DashboardModule,
+    NgChartsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,7 +9,8 @@ initializeApp({
 });
 
 const db = getFirestore();
-const batch = db.batch();
+let batchs = [db.batch()];
+let batchcount = 1;
 
 const keys = [
     'CaseID',
@@ -65,14 +66,21 @@ const keys = [
 let count = 0;
 
 fs.createReadStream("../data/311_Cases.csv")
-  .pipe(parse({ delimiter: ",", from_line: 2,to_line:500  }))
-  .on("data", function (row) {
-    const ref = db.collection('cities').doc();
-    batch.set(ref,constructRecord(row));
-    console.log("Processed", count++)
+  .pipe(parse({ delimiter: ",", from_line: 2,to_line:100000  }))
+  .on("data", async function (row) {
+    const ref = db.collection('cases').doc();
+    batchs[batchcount-1].set(ref,constructRecord(row));
+    count++;
+    if(count % 500 == 0) {
+      batchs.push(db.batch());
+      batchcount++;
+    }
   })
   .on("end", async function () {
-    await batch.commit();
+
+    Promise.all(batchs.map(batch=>batch.commit())).then(()=>{
+      console.log("fin")
+    })
     console.log("finished");
   })
   .on("error", function (error) {
