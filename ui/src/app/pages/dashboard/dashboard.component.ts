@@ -21,7 +21,9 @@ export class DashboardComponent {
   CHART_DATA: {rows: ChartDataRow[]} = {rows: []};
   ISSUES_DATA: IssuesDataRow[] = [];
   TABLE_DATA: TableRow[] = [];
+  TABLE_INITIAL_DATA: TableRow[] = [];
   tableLoading = false;
+  totalCount = 0;
 
   constructor(private readonly dataService: DataServiceService){
       this.updateData();
@@ -55,7 +57,8 @@ export class DashboardComponent {
       }
 
       if(data.rawData) {
-        this.TABLE_DATA = data.rawData.data;
+        this.TABLE_INITIAL_DATA = data.rawData.data;
+        this.totalCount = data.rawData.count;
       }
      
     })

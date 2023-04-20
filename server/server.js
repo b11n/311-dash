@@ -14,15 +14,17 @@ app.get('/api/raw', (request, response) => {
     const from = request.query.from || DEFAULT_START;
     const to = request.query.to || DEFAULT_END;
     const neighbourhood = request.query.neighbourhood || "";
-    console.log(from, to)
     Promise.all([
         constructLineGraphData(from, to, neighbourhood), 
         constructToIssuesData(from, to, neighbourhood),
-        constructRawData(from,to, neighbourhood)]).then((data) => {
+        constructRawData(from,to, neighbourhood),
+        getRawDataCount(from, to, neighbourhood)]).then((data) => {
+            console.log(data[3])
         response.send({
             chartData: data[0],
             issuesData: data[1],
-            rawData: data[2]
+            rawData: data[2],
+            count: data[3][0].count
         })
     })
 });
@@ -97,6 +99,24 @@ function constructToIssuesData(from, to, neighbourhood) {
     });
 }
 
+function getRawDataCount(from, to, neighbourhood, offset = 0) {
+    let filterQuery = "";
+    if (neighbourhood !== "") {
+        filterQuery = `AND Neighborhood = '${neighbourhood}'`;
+    }
+
+    // TODO(b11n): Update this to an ORM based call or a prepared statement;
+    const statement = "SELECT count(*) as count FROM '../data/small.csv' WHERE Opened > '" + from + "' AND Opened < '" + to + "' " + filterQuery + ";";
+    return new Promise((resolve, reject) => {
+        db.all(statement, function (err, res) {
+            if (err) {
+                throw err;
+            }
+            resolve(res);
+        });
+    });
+}
+
 function constructRawData(from, to, neighbourhood, offset = 0) {
 
     let filterQuery = "";
@@ -106,7 +126,6 @@ function constructRawData(from, to, neighbourhood, offset = 0) {
 
     // TODO(b11n): Update this to an ORM based call or a prepared statement;
     const statement = "SELECT * FROM '../data/small.csv' WHERE Opened > '" + from + "' AND Opened < '" + to + "' " + filterQuery + " ORDER BY CaseID LIMIT 10 OFFSET "+offset+";";
-    console.log(statement);
     return new Promise((resolve, reject) => {
         db.all(statement, function (err, res) {
             if (err) {

@@ -16,7 +16,9 @@
 <div class="tables-section">
     <div class="raw-data">
         <app-card [loading]="loading || tableLoading"  cardHeader="Cases">
-            <app-table [data]="TABLE_DATA" (pageUpdate)="pageUpdate($event)"></app-table>
+            <app-table [data]="TABLE_DATA" [initialData]="TABLE_INITIAL_DATA"
+                [resultsLength]="totalCount"
+              (pageUpdate)="pageUpdate($event)"></app-table>
         </app-card>
     </div>
     <div class="top-requests">

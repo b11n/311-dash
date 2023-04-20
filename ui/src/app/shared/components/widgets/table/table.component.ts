@@ -10,12 +10,22 @@ import {Component, ViewChild, Input, Output, EventEmitter} from '@angular/core';
 export class TableComponent {
 
   @Input()
+  set initialData(data: TableRow[]) {
+    this.data = data;
+    if(this.paginator){
+      this.paginator.firstPage();
+    }
+  }
+
+  @Input()
   data: TableRow[] = [];
 
   @Output()
   pageUpdate = new EventEmitter<number>();
 
+  @Input()
   resultsLength = 1000;
+  
   displayedColumns: string[] = ['caseid', 'category', 'created', 'desc'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
