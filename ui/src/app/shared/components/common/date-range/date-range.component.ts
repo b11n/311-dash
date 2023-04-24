@@ -2,8 +2,6 @@ import {Input, Output, Component, EventEmitter } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 
 
-
-
 @Component({
   selector: 'app-date-range',
   templateUrl: './date-range.component.html',
@@ -47,5 +45,7 @@ export class DateRangeComponent {
 }
 
 function formatDate(date: Date):string {
-  return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+  const dateOfMonth = date.getDate();
+  const monthOfYear = date.getMonth()+1;
+  return `${date.getFullYear()}-${monthOfYear < 10 ? '0'+monthOfYear: monthOfYear}-${dateOfMonth < 10 ? '0'+dateOfMonth: dateOfMonth}`;
 }
