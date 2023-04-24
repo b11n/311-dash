@@ -14,7 +14,8 @@ const client = new Client({
 });
 
 
-function lineGraphQueryBody(from, to, neighbourhood = null) {
+
+function fromToAndNeighbourhoodQueryFilter(from, to, neighbourhood) {
     let filters = [
         {
             "range": {
@@ -32,12 +33,16 @@ function lineGraphQueryBody(from, to, neighbourhood = null) {
             }
         });
     }
+    return filters;
+}
 
+
+function lineGraphQueryBody(from, to, neighbourhood = null) {
     return {
         "size": 0,
         "query": {
             "bool": {
-                "filter": filters
+                "filter": fromToAndNeighbourhoodQueryFilter(from, to, neighbourhood)
             }
         },
         "aggs": {
@@ -52,28 +57,10 @@ function lineGraphQueryBody(from, to, neighbourhood = null) {
 }
 
 function topIssuesQueryBody(from, to, neighbourhood = null) {
-    let filters = [
-        {
-            "range": {
-                "Opened": {
-                    "gte": from,
-                    "lte": to
-                }
-            }
-        },
-    ];
-    if(neighbourhood !== null) {
-        filters.push({
-            "match_phrase": {
-                "Neighborhood": neighbourhood
-            }
-        });
-    }
-
     return {
         "query": {
             "bool": {
-                "filter": filters
+                "filter": fromToAndNeighbourhoodQueryFilter(from, to, neighbourhood)
             }
         },
         "aggs": {
@@ -85,6 +72,23 @@ function topIssuesQueryBody(from, to, neighbourhood = null) {
             }
         }
     };
+}
+
+function tableQueryBody(from, to, neighbourhood = null, offset = null) {
+    const retObj = {
+        "from": 0,
+        "size":10,
+        "query": {
+            "bool": {
+                "filter": fromToAndNeighbourhoodQueryFilter(from, to, neighbourhood)
+            }
+        },
+    };
+    if(offset !== null) {
+        retObj['from'] = parseInt(offset);
+    }
+    console.log(retObj)
+    return retObj;
 }
 
 function constructLineGraphData(from, to, neighbourhood) {
@@ -100,7 +104,6 @@ function constructLineGraphData(from, to, neighbourhood) {
 
 function constructToIssuesData(from, to , neighbourhood) {
     return client.search({ index: 'one', body: topIssuesQueryBody(from, to,neighbourhood) }).then((data)=>{
-        console.log(data)
         return data.aggregations.count_over_time.buckets.map(bucket=>{
             return {
                 Category: bucket['key'],
@@ -111,7 +114,21 @@ function constructToIssuesData(from, to , neighbourhood) {
 }
 
 
+function constructTableData(from, to , neighbourhood, offset = null) {
+    return client.search({ index: 'one', body: tableQueryBody(from, to,neighbourhood, offset) }).then((data)=>{
+        console.log(data.hits);
+        return {
+            total: data.hits.total.value,
+            rows: data.hits.hits.map(hit=>{
+                return hit._source;
+            })
+        }
+    });
+}
+
+
 module.exports = {
     constructLineGraphData,
     constructToIssuesData,
+    constructTableData,
 }
