@@ -1,0 +1,5 @@
+{
+    "elastic": {
+      "password": "ELASTIC_PASSWORD"
+    }
+  }

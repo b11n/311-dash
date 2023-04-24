@@ -1,7 +1,8 @@
 const express = require('express');
 const duckdb = require('duckdb');
+const elastic  = require('./elastic');
 
-var db = new duckdb.Database(':memory:'); // or a file name for a persistent DB
+var db = new duckdb.Database('cases.db'); // or a file name for a persistent DB
 
 
 
@@ -13,18 +14,18 @@ const app = express();
 app.get('/api/raw', (request, response) => {
     const from = request.query.from || DEFAULT_START;
     const to = request.query.to || DEFAULT_END;
-    const neighbourhood = request.query.neighbourhood || "";
+    const neighbourhood = request.query.neighbourhood || null;
     Promise.all([
-        constructLineGraphData(from, to, neighbourhood), 
-        constructToIssuesData(from, to, neighbourhood),
-        constructRawData(from,to, neighbourhood),
-        getRawDataCount(from, to, neighbourhood)]).then((data) => {
-            console.log(data[3])
+        elastic.constructLineGraphData(from, to, neighbourhood), 
+        elastic.constructToIssuesData(from, to, neighbourhood),
+        // constructRawData(from,to, neighbourhood),
+        // getRawDataCount(from, to, neighbourhood)
+    ]).then((data) => {
         response.send({
             chartData: data[0],
             issuesData: data[1],
-            rawData: data[2],
-            count: data[3][0].count
+            // rawData: data[2],
+            // count: data[3][0].count
         })
     })
 });
