@@ -116,7 +116,6 @@ function constructToIssuesData(from, to , neighbourhood) {
 
 function constructTableData(from, to , neighbourhood, offset = null) {
     return client.search({ index: 'one', body: tableQueryBody(from, to,neighbourhood, offset) }).then((data)=>{
-        console.log(data.hits);
         return {
             total: data.hits.total.value,
             rows: data.hits.hits.map(hit=>{
