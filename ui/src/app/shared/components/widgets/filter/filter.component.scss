@@ -14,3 +14,13 @@ mat-form-field {
 mat-chip-row {
     margin-left: 12px;
 }
+
+mat-dialog-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.selected {
+    margin-left: 20px;
+}
