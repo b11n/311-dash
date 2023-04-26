@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class CardComponent {
   @Input() loading = false;
   @Input() cardHeader = '';
+  @Input() loadError = false;
 }

@@ -5,3 +5,11 @@ mat-card-content {
 mat-card-footer {
     min-height: 2px;
 }
+
+.refresh-container {
+    width: 100%;
+    display: flex;
+    min-height: 200px;
+    align-items: center;
+    justify-content: center;
+}

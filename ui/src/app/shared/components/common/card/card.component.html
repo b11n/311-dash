@@ -1,9 +1,15 @@
 <mat-card>
-    <mat-card-header>
+
+    <mat-card-header >
         <mat-card-title>{{cardHeader}}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <ng-content></ng-content>
+    </mat-card-header >
+    <mat-card-content >
+        <div *ngIf="loadError" class="refresh-container">
+            <button mat-icon-button>
+                <mat-icon  fontIcon="refresh"></mat-icon>
+            </button>
+        </div>
+        <ng-content  *ngIf="!loadError"></ng-content>
     </mat-card-content>
     <mat-card-footer >
         <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>

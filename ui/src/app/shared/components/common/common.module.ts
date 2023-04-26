@@ -10,6 +10,8 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { LineChartComponent } from './line-chart/line-chart.component';
 import { NgChartsModule } from 'ng2-charts';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { NgChartsModule } from 'ng2-charts';
     MatNativeDateModule,
     MatProgressBarModule,
     NgChartsModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   exports: [
     CardComponent,
