@@ -1,4 +1,4 @@
-import { TableRow } from '../../../../services/models';
+import { TableRow } from '../../../services/models';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {Component, ViewChild, Input, Output, EventEmitter} from '@angular/core';
 

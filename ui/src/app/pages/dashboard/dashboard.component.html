@@ -8,21 +8,21 @@
 </div>
 
 <div class="chart-section" >
-    <app-card [loading]="chartLoading">
+    <app-card [loading]="chartLoading" >
         <app-line-chart [data]="CHART_DATA"></app-line-chart>
     </app-card>
 </div>
 
 <div class="tables-section">
     <div class="raw-data">
-        <app-card [loading]="tableLoading"  cardHeader="Cases">
+        <app-card [loading]="tableLoading"  cardHeader="Cases" [loadError]="tableLoadError" (retry)="retryTable()">
             <app-table [data]="TABLE_DATA" [initialData]="TABLE_INITIAL_DATA"
                 [resultsLength]="totalCount"
               (pageUpdate)="pageUpdate($event)"></app-table>
         </app-card>
     </div>
     <div class="top-requests">
-        <app-card [loading]="topIssuesLoading" cardHeader="Top requests" [loadError]="false">
+        <app-card [loading]="topIssuesLoading" cardHeader="Top requests" [loadError]="topIssuesLoadError" (retry)="retryTopIssues()">
             <div class="requests-body">
             <div class="top-issue-row" *ngFor="let issue of ISSUES_DATA">
                 <div>{{issue.Category}}</div>

@@ -28,7 +28,9 @@ export class DashboardComponent {
   TABLE_DATA: TableRow[] = [];
   TABLE_INITIAL_DATA: TableRow[] = [];
   tableLoading = false;
+  tableLoadError = false;
   topIssuesLoading = false;
+  topIssuesLoadError = false;
   totalCount = 0;
 
   chartLoading = true;
@@ -52,6 +54,14 @@ export class DashboardComponent {
     this.updateTableData(event);
   }
 
+  retryTopIssues() {
+    this.updateTopIssuesData();
+  }
+
+  retryTable() {
+    this.updateTableData();
+  }
+
   updateData() {
     this.updateLineData();
     this.updateTableData();
@@ -67,8 +77,12 @@ export class DashboardComponent {
       }else {
         this.TABLE_DATA = data.rows;
       }
+      this.tableLoadError = false;
+    }).catch(()=>{
+      this.tableLoadError = true;
+    }).finally(()=>{
       this.tableLoading = false;
-    });
+    })
   }
 
   private updateLineData() {
@@ -88,7 +102,11 @@ export class DashboardComponent {
     this.dataService.fetchTopIssuesData().then((data) => {
       this.ISSUES_DATA = data;
       this.topIssuesLoading = false;
-    })
+      this.topIssuesLoadError = false;
+    }).catch((error)=>{
+      this.topIssuesLoading = false;
+      this.topIssuesLoadError = true;
+    });
   }
 
 
