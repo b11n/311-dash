@@ -14,7 +14,6 @@ const client = new Client({
 });
 
 
-
 function fromToAndNeighbourhoodQueryFilter(from, to, neighbourhood) {
     let filters = [
         {

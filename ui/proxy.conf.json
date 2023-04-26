@@ -1,10 +1,11 @@
 {
-    "/api": {
+    "/api/api": {
         "target":  {
-            "host": "localhost",
-            "protocol": "http:",
-            "port": 3000
+            "host": "us-central1-cal-311.cloudfunctions.net/",
+            "protocol": "https:",
+            "port": 80
           },
+      "pathRewrite": {"^/api" : "/api"},
       "secure": false
     }
   }
