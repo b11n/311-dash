@@ -14,10 +14,11 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v1
         with:
-          node-version: 18.14.2
+          node-version: 18.14.2  
       - name: npm dependencies
+        working-directory: './ui'
         run: npm install   
-      - working-directory: ./ui
+      - name: build
         run: npm run build -- --prod
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
