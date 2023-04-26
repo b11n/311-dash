@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FilterConfig, IssuesDataRow, TableRow } from 'src/app/data/models';
+import { FilterConfig, IssuesDataRow, TableRow } from '../../data/models';
 import { DataServiceService } from '../../data/data-service.service';
 
 interface ChartDataRow {

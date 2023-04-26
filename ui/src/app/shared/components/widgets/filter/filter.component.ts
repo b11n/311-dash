@@ -3,7 +3,7 @@ import {MatDialog,MatDialogRef} from '@angular/material/dialog';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import { NEIGHBORHOOD_LIST } from 'src/app/data/static_data';
+import { NEIGHBORHOOD_LIST } from '../../../../data/static_data';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 
