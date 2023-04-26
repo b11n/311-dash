@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FilterConfig, IssuesDataRow, TableRow } from '../../data/models';
-import { DataServiceService } from '../../data/data-service.service';
+import { FilterConfig, IssuesDataRow, TableRow } from '../../services/models';
+import { DataServiceService } from '../../services/data-service.service';
 
 interface ChartDataRow {
   date: string;
