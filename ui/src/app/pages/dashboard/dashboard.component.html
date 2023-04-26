@@ -22,7 +22,7 @@
         </app-card>
     </div>
     <div class="top-requests">
-        <app-card [loading]="topIssuesLoading" cardHeader="Top requests" [loadError]="true">
+        <app-card [loading]="topIssuesLoading" cardHeader="Top requests" [loadError]="false">
             <div class="requests-body">
             <div class="top-issue-row" *ngFor="let issue of ISSUES_DATA">
                 <div>{{issue.Category}}</div>
