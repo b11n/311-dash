@@ -13,6 +13,21 @@ const client = new Client({
     }
 });
 
+function getIntervalForLine(from, to) {
+    const fromDate = new Date(from).getTime();
+    const toDate = new Date(to).getTime();
+
+    const diff = toDate-fromDate;
+
+    if(diff < 7776000000) {
+        return 'day';
+    }else if (diff < 31536000000) {
+        return 'month';
+    }else {
+        return 'year';
+    }
+}
+
 
 function fromToAndNeighbourhoodQueryFilter(from, to, neighbourhood) {
     let filters = [
@@ -48,7 +63,7 @@ function lineGraphQueryBody(from, to, neighbourhood = null) {
             "count_over_time": {
                 "date_histogram": {
                     "field": "Opened",
-                    "calendar_interval": "day"
+                    "calendar_interval": getIntervalForLine(from, to)
                 }
             }
         }
@@ -86,7 +101,6 @@ function tableQueryBody(from, to, neighbourhood = null, offset = null) {
     if(offset !== null) {
         retObj['from'] = parseInt(offset);
     }
-    console.log(retObj)
     return retObj;
 }
 
