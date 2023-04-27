@@ -32,4 +32,9 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>
-<mat-paginator [length]="resultsLength" [pageSize]="10" (page)="pageChange($event)" aria-label="Select page of GitHub search results"></mat-paginator>
+<mat-paginator 
+[length]="resultsLength" 
+[pageSize]="10" 
+[disabled]="disableControls"
+(page)="pageChange($event)" aria-label="Select page of table data"
+></mat-paginator>

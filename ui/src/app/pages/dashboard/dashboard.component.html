@@ -17,6 +17,7 @@
     <div class="raw-data">
         <app-card [loading]="tableLoading"  cardHeader="Cases" [loadError]="tableLoadError" (retry)="retryTable()">
             <app-table [data]="TABLE_DATA" [initialData]="TABLE_INITIAL_DATA"
+                [disableControls]="tableLoading"
                 [resultsLength]="totalCount"
               (pageUpdate)="pageUpdate($event)"></app-table>
         </app-card>

@@ -101,11 +101,11 @@ export class DashboardComponent {
     this.topIssuesLoading = true;
     this.dataService.fetchTopIssuesData().then((data) => {
       this.ISSUES_DATA = data;
-      this.topIssuesLoading = false;
       this.topIssuesLoadError = false;
     }).catch((error)=>{
-      this.topIssuesLoading = false;
       this.topIssuesLoadError = true;
+    }).finally(()=>{
+      this.topIssuesLoading = false;
     });
   }
 

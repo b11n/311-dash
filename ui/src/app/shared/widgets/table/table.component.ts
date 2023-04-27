@@ -25,6 +25,9 @@ export class TableComponent {
 
   @Input()
   resultsLength = 1000;
+
+  @Input()
+  disableControls = false;
   
   displayedColumns: string[] = ['caseid', 'category', 'created', 'desc'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
