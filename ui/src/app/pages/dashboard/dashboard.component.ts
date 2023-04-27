@@ -90,7 +90,7 @@ export class DashboardComponent {
     this.dataService.fetchLineGraphData().then((data) => {
       this.CHART_DATA = {
         rows: data.map((row:ChartDataRow) => {
-          return { ...row, date: new Date(row.date).toDateString() }
+          return { ...row, date: this.formatDate(row.date) }
         })
       };
       this.chartLoading = false;
@@ -109,7 +109,39 @@ export class DashboardComponent {
     });
   }
 
+  private formatDate(date:string) {
+    let interval = this.getIntervalForLine();
+    let dateObj = new Date(date);
+    switch(interval) {
+      case 'day':
+        return dateObj.toDateString();
+      case 'month':
+        return dateObj.toLocaleString('default', { month: 'long' }) + " - " +dateObj.getFullYear();
+      case 'year':
+        return dateObj.getFullYear();
+      default:
+        return dateObj.toDateString();
+    }
+
+  }
+
+  private getIntervalForLine() {
+    const fromDate = new Date(this.fromDate).getTime();
+    const toDate = new Date(this.toDate).getTime();
+  
+    const diff = toDate-fromDate;
+  
+    if(diff < 7776000000) {
+        return 'day';
+    }else if (diff < 31536000000) {
+        return 'month';
+    }else {
+        return 'year';
+    }
+  }
+
 
 }
+
 
 
