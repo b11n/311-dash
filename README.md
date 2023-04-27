@@ -15,5 +15,6 @@ hence no additional set up is required for BE when running locally.
 There's also a publicly hosted version here - 
 https://cal-311.web.app/dashboard
 
-TODO(b11n): Highlevel architecture diagram
+## Highlevel architecture
 
+![Architecture](./image.png)
